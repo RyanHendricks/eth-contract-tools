@@ -1,0 +1,16 @@
+=============== Oct 11, 2017 (EDT) ===============
+10:33:42.669526 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+10:33:42.678712 db@open opening
+10:33:42.679513 version@stat F·[] S·0B[] Sc·[]
+10:33:42.684094 db@janitor F·2 G·0
+10:33:42.684144 db@open done T·5.394055ms
+=============== Oct 11, 2017 (EDT) ===============
+10:33:53.289457 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+10:33:53.289605 version@stat F·[] S·0B[] Sc·[]
+10:33:53.289617 db@open opening
+10:33:53.289663 journal@recovery F·1
+10:33:53.290592 journal@recovery recovering @1
+10:33:53.301733 memdb@flush created L0@2 N·11 S·721B "HbS..:.\xa7,v5":"\xf2\xd9\x05..9\xc3_,v2"
+10:33:53.302328 version@stat F·[1] S·721B[721B] Sc·[0.25]
+10:33:53.317020 db@janitor F·3 G·0
+10:33:53.317079 db@open done T·27.449485ms
