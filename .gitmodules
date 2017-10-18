@@ -1,0 +1,7 @@
+[submodule "erc20-explorer"]
+	url = https://github.com/gobitfly/erc20-explorer
+[submodule "ethersapp"]
+	url = https://github.com/yuetloo/ethersapp
+[submodule "awesome-solidity"]
+	path = awesome-solidity
+	url = https://github.com/bkrem/awesome-solidity
