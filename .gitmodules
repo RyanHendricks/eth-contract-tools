@@ -3,3 +3,5 @@
 [submodule "awesome-solidity"]
 	path = awesome-solidity
 	url = https://github.com/bkrem/awesome-solidity
+[submodule "ethersapp"]
+	url = https://github.com/yuetloo/ethersapp
