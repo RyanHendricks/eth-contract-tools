@@ -1,4 +1,8 @@
-eth-contract-tools
+# Ethereum Contract Development Toolbox
+
+## Get started
+`npm install`
+
 
 **WIP**
 
