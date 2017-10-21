@@ -6,3 +6,6 @@
 [submodule "ethersapp"]
 	path = ethersapp
 	url = https://github.com/yuetloo/ethersapp
+[submodule "oracles-combine-solidity"]
+	path = oracles-combine-solidity
+	url = https://github.com/oraclesorg/oracles-combine-solidity
