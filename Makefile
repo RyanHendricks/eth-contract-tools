@@ -1,20 +1,41 @@
-.PHONY: deps abi source build testrpc test
+build-contracts:
+	$(shell pwd -P)/node_modules/sol-merger/bin/sol-merger.js $(shell pwd -P)/contracts/$(dir)/$(contract).sol $(shell pwd -P)/build/merged/$(contract)
+
+graphpng:
+	solgraph $(shell pwd -P)/contracts/$(dir)/$(contract).sol | dot -Tpng > $(shell pwd -P)/graphs/$(dir)/$(contract).png
+
+graphrec:
+	$(shell pwd -P)/node_modules/solidity-graph/index.js $(shell pwd -P)/contracts/$(directory) --output $(shell pwd -P)/build/temp/ -c
+	cp $(shell pwd -P)/build/temp/graph.png $(shell pwd -P)/build/$(directory).png
+	rm $(shell pwd -P)/build/temp/graph.png
+
+treemap:
+	tree --noreport -L 9 -X -I "$(exclude)" $(shell pwd -P)/contracts/ | sed 's/directory/node/g'| sed 's/name/TEXT/g' | sed 's/tree/map/g' | sed '$d' | sed '$d' | sed '$d'|  sed "1d" | sed 's/report/\/map/g' | sed 's/<map>/<map version="1.0.1">/g' > map.mm
+
+treespec:
+	tree -L 9 -X -I tmp $(shell pwd -P)/contracts/$(directory)/ | sed 's/directory/node/g'| sed 's/name/TEXT/g' | sed 's/tree/map/g' | sed '$d' | sed '$d' | sed '$d'|  sed "1d" | sed 's/report/\/map/g' | sed 's/<map>/<map version="1.0.1">/g' > $(shell pwd -P)/contracts/$(directory)/Map.mm
+
+compile:
+	solc --optimize --abi --bin --metadata $(shell pwd -P)/contracts/$(contract).sol > $ $(shell pwd -P)/build/$(contract).txt
+
+#  "sol-merger './contracts/*.sol' ./build",
+
+## STILL IN PROGRESS
+
 
 flat:
-	solidity_flattener $(shell dir -P)/$(contract).sol --out flat/$(contract)_flat.sol
+	solidity_flattener $(shell pwd -P)/$(subdir)/$(contract).sol --out $(shell pwd -P)/flat/$(contract)_flat.sol
 
-deps:
-	npm install
+merged:
+	$(shell pwd -P)/node_modules/sol-merger $(shell pwd -P)/contracts/*.sol 
 
-graph:
-	$(shell pwd -P)/contracts/$(contract).sol | solgraph > $(shell pwd -P)/graphs/$(contract).sol
+graphdot:
+	solgraph $(shell pwd -P)/contracts/$(dir)/$(contract).sol | > $(shell pwd -P)/build/$(dirs)/$(contract).dot
 	# solgraph | dot -Tpng | open
 
 solgraph:
 	pbpaste | solgraph | dot -Tpng > $(shell pwd -P)
 
-graphrec:
-	$(shell pwd -P)/node_modules/solidity-graph/index.js $(shell pwd -P)/contracts/$(directory) --output $(shell pwd -P)/contracts/$(directory) -c
 
 tree:
 	tree -d -L 8 -X -I tmp $(shell pwd -P)/contracts/$(directory)/ | sed 's/directory/node/g'| sed 's/name/TEXT/g' | sed 's/tree/map/g' | sed '$d' | sed '$d' | sed '$d'|  sed "1d" | sed 's/report/\/map/g' | sed 's/<map>/<map version="1.0.1">/g' > $(shell pwd -P)/contracts/$(directory)/Map.mm

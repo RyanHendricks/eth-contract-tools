@@ -5,6 +5,8 @@
   "main": "README.md",
   "author": "Ryan Hendricks",
   "scripts": {
+    "graph": "make graphrec",
+    "treemaps": "make trees",
     "build-contracts": "sol-merger './contracts/*.sol' ./build",
     "build-contract": "sol-merger 'contractdir/contract.sol' ./build",
     "start": "node index.js",
@@ -31,6 +33,7 @@
     "fs": "0.0.1-security",
     "generate-contract-factory": "^0.1.4",
     "generate-contract-interface": "^0.1.13",
+    "graphviz": "0.0.8",
     "keythereum": "^1.0.2",
     "lodash": "^4.17.4",
     "marked": "^0.3.6",
