@@ -1,0 +1,12 @@
+!/build/*
+.tern-port
+.DS_Store
+node_modules/
+coverage/
+.idea/
+*.log
+*.bac
+
+/build
+/coverage
+yarn.lock
