@@ -1,13 +1,19 @@
-build-contracts:
+build-contract:
 	$(shell pwd -P)/node_modules/sol-merger/bin/sol-merger.js $(shell pwd -P)/contracts/$(dir)/$(contract).sol $(shell pwd -P)/build/merged/$(contract)
 
 graphpng:
-	solgraph $(shell pwd -P)/contracts/$(dir)/$(contract).sol | dot -Tpng > $(shell pwd -P)/graphs/$(dir)/$(contract).png
+	solgraph $(shell pwd -P)/contracts/$(dir)/$(contract).sol | dot -Tpng > $(shell pwd -P)/build/temp/$(contract).png
+	cp $(shell pwd -P)/build/temp/$(contract).png $(shell pwd -P)/build/solgraphs/$(contract).png
+	rm $(shell pwd -P)/build/temp/$(contract).png
 
 graphrec:
 	$(shell pwd -P)/node_modules/solidity-graph/index.js $(shell pwd -P)/contracts/$(directory) --output $(shell pwd -P)/build/temp/ -c
 	cp $(shell pwd -P)/build/temp/graph.png $(shell pwd -P)/build/$(directory).png
 	rm $(shell pwd -P)/build/temp/graph.png
+
+markdoc:
+	$(shell pwd -P)/node_modules/.bin/solmd/ $(shell pwd -P)/$(dir)/$(contract).sol
+	cp $(shell pwd -P)/sol.md $(shell pwd -P)/build/markdocs/$(dir).md
 
 treemap:
 	tree --noreport -L 9 -X -I "$(exclude)" $(shell pwd -P)/contracts/ | sed 's/directory/node/g'| sed 's/name/TEXT/g' | sed 's/tree/map/g' | sed '$d' | sed '$d' | sed '$d'|  sed "1d" | sed 's/report/\/map/g' | sed 's/<map>/<map version="1.0.1">/g' > map.mm

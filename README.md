@@ -5,53 +5,54 @@
 `npm install`
 
 -----
-## Commands
 
-**Flatten/Merge Contract Imports**
-```sh
-make build-contracts dir="crowdsale" contract="CappedCrowdsale"
+## Make Stuff
 
+### make build-contract
 
-**
-dir = contracts/*yourpathhere*
-contract = contract name to be flattened
-**
-```
-Outputs to .build/merged/*ContractName*
+*Flatten/Merge Contract Imports*
 
----
+**Example Usage:**
+`make build-contract dir="crowdsale" contract="CappedCrowdsale"`
 
-**Graph Single Contract as .PNG**
+*dir* = ./contracts/*dir*/
+*contract* = contract name to be flattened
+*output* file saved: ./build/merged/*contract*/
 
-```sh
-make graphpng dir="crowdsale" contract="CappedCrowdsale"
-
-**
-dir = contracts/*yourpathhere*
-contract = contract name to be flattened
-**
-```
-
-![/Users/ryanhendricks/git/eth-contract-tools/contracts/crowdsale/Crowdsale.png](./contracts/crowdsale/Crowdsale.png)
 
 -----
 
-Contracts Directory Recursive Overview
+### make graphpng
 
-```sh
-make graphrec
-```
+*Graph Single Contract as .PNG*
+
+**Example Usage:**
+`make graphpng dir="crowdsale" contract="CappedCrowdsale"`
+
+*dir* = ./contracts/*dir*/
+*contract* = contract  for solgraph
+output file location in ./build/solgrpahs/*contract*.png
+
+![./build/solgraphs/CappedCrowdsale.png](./build/solgraphs/CappedCrowdsale.png)
+
+-----
+
+### make graphrec
+
+
+
+**Example Usage - All Contracts**
+`make graphrec`
+
+**Example Usage - Contracts Subdirectory**
+`make graphrec directory="Token"'
+
+*directory* = ./contracts/*directory*/
+output file location in ./build/solgrpahs/*contract*.png
 
 ![./contracts/graph.png](./contracts/graph.png)
+Contracts Directory Recursive Overview
 
------
-
-**Sub-Directory Overview**
-
-```sh
-make graphrec directory="Token"
-```
-![.build/Token.png](./Build/Token.png)
 
 -----
 
