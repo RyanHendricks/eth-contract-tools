@@ -13,7 +13,8 @@ graphrec:
 
 markdoc:
 	$(shell pwd -P)/node_modules/.bin/solmd/ $(shell pwd -P)/$(dir)/$(contract).sol
-	cp $(shell pwd -P)/sol.md $(shell pwd -P)/build/markdocs/$(dir).md
+	cp $(shell pwd -P)/sol.md $(shell pwd -P)/build/markdocs/$(contract).md
+	rm $(shell pwd -P)/sol.md
 
 treemap:
 	tree --noreport -L 9 -X -I "$(exclude)" $(shell pwd -P)/contracts/ | sed 's/directory/node/g'| sed 's/name/TEXT/g' | sed 's/tree/map/g' | sed '$d' | sed '$d' | sed '$d'|  sed "1d" | sed 's/report/\/map/g' | sed 's/<map>/<map version="1.0.1">/g' > map.mm
