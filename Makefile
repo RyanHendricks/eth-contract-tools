@@ -1,3 +1,6 @@
+gen-address:
+	$(shell pwd -P)/node_modules/ethjs-account/dist/ethjs-account generate('892h@fs8sk^2h8s8shfs.jk39hsoi@hohskd') > $(shell pwd -P)/key.txt
+
 build-contract:
 	$(shell pwd -P)/node_modules/sol-merger/bin/sol-merger.js $(shell pwd -P)/contracts/$(dir)/$(contract).sol $(shell pwd -P)/build/merged/$(contract)
 
@@ -8,7 +11,7 @@ graphpng:
 
 graphrec:
 	$(shell pwd -P)/node_modules/solidity-graph/index.js $(shell pwd -P)/contracts/$(directory) --output $(shell pwd -P)/build/temp/ -c
-	cp $(shell pwd -P)/build/temp/graph.png $(shell pwd -P)/build/$(directory).png
+	cp $(shell pwd -P)/build/temp/graph.png $(shell pwd -P)/build/$(directory)_flow.png
 	rm $(shell pwd -P)/build/temp/graph.png
 
 markdoc:

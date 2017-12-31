@@ -50,8 +50,9 @@ output file location in ./build/solgrpahs/*contract*.png
 *directory* = ./contracts/*directory*/
 output file location in ./build/solgrpahs/*contract*.png
 
-![./contracts/graph.png](./contracts/graph.png)
+![./build/_flow.png](./build/_flow.png)
 Contracts Directory Recursive Overview
+![./build/token_flow.png](./build/token_flow.png)
 
 
 -----
