@@ -1,20 +1,14 @@
-compile:
-	solc --optimize-runs 200 --gas --overwrite --bin --bin-runtime --clone-bin $(shell pwd -P)/contracts/$(contract).sol > $ $(shell pwd -P)/build/$(contract)_bin.json
-	solc --optimize-runs 200 --gas --overwrite --abi $(shell pwd -P)/contracts/$(contract).sol > $ $(shell pwd -P)/build/$(contract)_abi.json
-	solc --optimize-runs 200 --gas --overwrite --hashes $(shell pwd -P)/contracts/$(contract).sol > $ $(shell pwd -P)/build/$(contract)_hashes.json
-	solc --optimize-runs 200 --gas --overwrite --combined abi,asm,ast,bin,bin-runtime,clone-bin,hashes,interface,metadata,opcodes,srcmap $(shell pwd -P)/contracts/$(contract).sol > $ $(shell pwd -P)/build/$(contract)_combined.txt
+merged:
+	$(shell pwd -P)/node_modules/.bin/sol-merger $(shell pwd -P)/contracts/$(dir)/$(contract).sol $(shell pwd -P)/build/merged/$(contract)
+
+mergeall:
+	node_modules/sol-merger/bin/sol-merger.js "contracts/crowdsale/*.sol" build/merged
 
 compiled:
 	solc --abi --optimize-runs 200 --bin --overwrite $(shell pwd -P)/contracts/$(contract).sol -o $(shell pwd -P)/build
-	
-merged:
-	$(shell pwd -P)/node_modules/.bin/sol-merger $(shell pwd -P)/build/$(contract).sol 
-
-build-contract:
-	$(shell pwd -P)/node_modules/sol-merger/bin/sol-merger.js $(shell pwd -P)/contracts/$(dir)/$(contract).sol $(shell pwd -P)/build/merged/$(contract)
 
 graphpng:
-	solgraph $(shell pwd -P)/contracts/$(dir)/$(contract).sol | dot -Tpng > $(shell pwd -P)/build/temp/$(contract).png
+	$(shell pwd -P)/node_modules/.bin/solgraph $(shell pwd -P)/contracts/$(dir)/$(contract).sol | dot -Tpng > $(shell pwd -P)/build/temp/$(contract).png
 	cp $(shell pwd -P)/build/temp/$(contract).png $(shell pwd -P)/build/solgraphs/$(contract).png
 	rm $(shell pwd -P)/build/temp/$(contract).png
 
@@ -34,10 +28,23 @@ treemap:
 treespec:
 	tree -L 9 -X -I tmp $(shell pwd -P)/contracts/$(directory)/ | sed 's/directory/node/g'| sed 's/name/TEXT/g' | sed 's/tree/map/g' | sed '$d' | sed '$d' | sed '$d'|  sed "1d" | sed 's/report/\/map/g' | sed 's/<map>/<map version="1.0.1">/g' > $(shell pwd -P)/contracts/$(directory)/Map.mm
 
+compile:
+	solc --optimize-runs 200 --gas --overwrite --bin --bin-runtime --clone-bin $(shell pwd -P)/contracts/$(contract).sol > $ $(shell pwd -P)/build/$(contract)_bin.json
+	solc --optimize-runs 200 --gas --overwrite --abi $(shell pwd -P)/contracts/$(contract).sol > $ $(shell pwd -P)/build/$(contract)_abi.json
+	solc --optimize-runs 200 --gas --overwrite --hashes $(shell pwd -P)/contracts/$(contract).sol > $ $(shell pwd -P)/build/$(contract)_hashes.json
+	solc --optimize-runs 200 --gas --overwrite --combined abi,asm,ast,bin,bin-runtime,clone-bin,hashes,interface,metadata,opcodes,srcmap $(shell pwd -P)/contracts/$(contract).sol > $ $(shell pwd -P)/build/$(contract)_combined.txt
+
+
 #  "sol-merger './contracts/*.sol' ./build",
 
 ## STILL IN PROGRESS
 
+
+flatdir:
+	$(shell pwd -P)/node_modules/.bin/sol-merger $(shell pwd -P)/contracts/$(dir)/*.sol $(shell pwd -P)/build/merged/$(dir)
+
+build-contract:
+	$(shell pwd -P)/node_modules/sol-merger/bin/sol-merger.js $(shell pwd -P)/contracts/$(dir)/$(contract).sol $(shell pwd -P)/build/merged/$(contract)
 
 flat:
 	solidity_flattener $(shell pwd -P)/contracts/$(subdir)/$(contract).sol --out $(shell pwd -P)/contracts/$(subdir)/$(contract)_flat.sol
@@ -58,9 +65,6 @@ tree:
 abi:
 	solc zeppelin-solidity=$(shell pwd -P)/node_modules/zeppelin-solidity/ contracts/EthearnalRepTokenCrowdsale.sol --abi | grep ":EthearnalRepTokenCrowdsale " -A2 | tail -n1 > build/EthearnalRepTokenCrowdsale.abi
 
-source:
-	node_modules/sol-merger/bin/sol-merger.js "contracts/*.sol" var/build
-	cp var/build/*.sol build
 
 build: source abi
 
